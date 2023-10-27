@@ -6,20 +6,38 @@ const size = 30
 const snake = [
     { x: 200, y: 200 },
     { x: 230, y: 200 },
-    { x: 260, y: 200 },
-    { x: 290, y: 200 }
 ]
+
+let direction
 
 const drawSnake = () => {
     ctx.fillStyle = '#ddd'
 
     snake.forEach((position, index) => {
         if (index == snake.length - 1) {
-            ctx.fillStyle = "blue"
+            ctx.fillStyle = "white"
         }
 
         ctx.fillRect(position.x, position.y, size, size)
     })
 }
 
-drawSnake()
+const moveSnake = () => {
+    if (!direction) return
+
+    const head = snake[snake.length - 1]
+
+    if (direction == "right") {
+        snake.push({ x: head.x + size, y: head.y })
+    }
+
+    snake.shift()
+}
+
+setInterval(() => {
+    ctx.clearRect(0, 0, 600, 600)
+
+    moveSnake()
+    drawSnake()
+}, 300)
+// tempo de video 29:21 link: https://www.youtube.com/watch?v=LyWSsZktVOg
